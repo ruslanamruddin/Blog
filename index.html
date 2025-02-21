@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>THE BLOG - Home</title>
+  <link rel="stylesheet" href="styles.css" />
+  <!-- Import Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Roboto+Slab:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    /* Lazy reveal effect for posts, section headers, and the secondary title */
+    .post, .section-title, .secondary {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    }
+    .post.visible, .section-title.visible, .secondary.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    /* Arrow button styling (now static positioning) */
+    #scrollArrow {
+      display: block;
+      margin: 20px auto 0;
+      background: transparent;
+      border: none;
+      font-size: 3rem;
+      cursor: pointer;
+      opacity: 0;
+      transition: opacity 0.6s ease-out, transform 0.3s ease;
+    }
+    #scrollArrow.visible {
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <!-- Global Header Container -->
+  <div id="global-header"></div>
+
+  <!-- Hero Section (styled externally) -->
+  <section class="hero">
+    <h1 class="hero-title">THE BLOG</h1>
+    <p class="hero-subtitle">Insights, Stories, and More</p>
+    <!-- Arrow button placed inside the hero so it appears below the subtitle -->
+    <button id="scrollArrow" aria-label="Scroll Down">&#8595;</button>
+  </section>
+  
+  <!-- Secondary Title -->
+  <section id="second-title" class="container">
+    <h1 class="secondary">THE BLOG</h1>
+  </section>
+
+  <!-- Main Content: Recent Posts -->
+  <section id="posts" class="container">
+    <h2 class="section-title">Recent Posts</h2>
+    <div id="postsContainer"></div>
+  </section>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      // Load global header from header.html
+      function loadGlobalHeader() {
+        fetch('header.html')
+          .then(response => response.text())
+          .then(data => {
+            const container = document.getElementById('global-header');
+            container.innerHTML = data;
+            // Execute inline scripts in the loaded header.html
+            const scripts = container.querySelectorAll("script");
+            scripts.forEach(oldScript => {
+              const newScript = document.createElement("script");
+              if (oldScript.src) {
+                newScript.src = oldScript.src;
+              } else {
+                newScript.textContent = oldScript.textContent;
+              }
+              document.head.appendChild(newScript);
+              document.head.removeChild(newScript);
+            });
+          })
+          .catch(error => console.error('Error loading header:', error));
+      }
+      loadGlobalHeader();
+
+      // Fetch and display posts
+      async function fetchPosts() {
+        try {
+          const response = await fetch('http://localhost:3000/api/posts');
+          const data = await response.json();
+          const container = document.getElementById('postsContainer');
+          container.innerHTML = '';
+          data.posts.forEach(post => {
+            const postDiv = document.createElement('div');
+            postDiv.className = 'post'; // Initially hidden via CSS
+            postDiv.innerHTML = `
+              <h3>${post.title}</h3>
+              <p>${post.excerpt}</p>
+              <p><em>${new Date(post.date).toLocaleString()}</em></p>
+            `;
+            container.appendChild(postDiv);
+          });
+          observeElements();
+        } catch (error) {
+          console.error('Error fetching posts:', error);
+        }
+      }
+      fetchPosts();
+
+      // Intersection Observer for lazy reveal on posts, section headers, and secondary title
+      function observeElements() {
+        const animatedElements = document.querySelectorAll('.post, .section-title, .secondary');
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('visible');
+            } else {
+              entry.target.classList.remove('visible');
+            }
+          });
+        }, { threshold: 0.2 });
+        animatedElements.forEach(element => observer.observe(element));
+      }
+
+      // After 2 seconds, reveal the arrow button
+      setTimeout(() => {
+        const arrow = document.getElementById('scrollArrow');
+        if (arrow) {
+          arrow.classList.add('visible');
+        } else {
+          console.error("Scroll arrow element not found!");
+        }
+      }, 2000);
+
+      // When the arrow is clicked, scroll smoothly to the secondary title
+      document.getElementById('scrollArrow').addEventListener('click', () => {
+        const target = document.getElementById('second-title');
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+    });
+  </script>
+</body>
+</html>

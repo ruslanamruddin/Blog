@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="styles.css">
+  <title>THE BLOG - Create Post</title>
+  <style>
+ 
+    form {
+      border: 1px solid #ddd;
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 4px;
+    }
+    label {
+      display: block;
+      margin: 10px 0 5px;
+    }
+    input, textarea {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 10px;
+    }
+    button {
+      padding: 10px 20px;
+      background: #007BFF;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <!-- Global Header Container -->
+  <div id="global-header"></div>
+
+  <h1>Create a New Post</h1>
+  <form id="createPostForm">
+    <label for="postTitle">Title:</label>
+    <input type="text" id="postTitle" required />
+    <label for="postContent">Content:</label>
+    <textarea id="postContent" required></textarea>
+    <label for="postExcerpt">Excerpt:</label>
+    <textarea id="postExcerpt" required></textarea>
+    <label for="postReadTime">Read Time:</label>
+    <input type="text" id="postReadTime" />
+    <label for="postImageUrl">Image URL:</label>
+    <input type="text" id="postImageUrl" />
+    <button type="submit">Create Post</button>
+  </form>
+
+  <script>
+    // Function to load header.html and execute its inline scripts
+    function loadGlobalHeader() {
+      fetch('header.html')
+        .then(response => response.text())
+        .then(data => {
+          const container = document.getElementById('global-header');
+          container.innerHTML = data;
+          // Extract and execute any script tags from the loaded HTML
+          const scripts = container.querySelectorAll("script");
+          scripts.forEach(oldScript => {
+            const newScript = document.createElement("script");
+            if (oldScript.src) {
+              newScript.src = oldScript.src;
+            } else {
+              newScript.textContent = oldScript.textContent;
+            }
+            document.head.appendChild(newScript);
+            document.head.removeChild(newScript);
+          });
+        })
+        .catch(error => console.error('Error loading header:', error));
+    }
+    loadGlobalHeader();
+
+    // Check for token in localStorage
+    const token = localStorage.getItem('token');
+    if (!token) {
+      alert('You must be logged in to create a post.');
+      window.location.href = 'auth.html';
+    }
+
+    // Create post handler
+    document.getElementById('createPostForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const title = document.getElementById('postTitle').value;
+      const content = document.getElementById('postContent').value;
+      const excerpt = document.getElementById('postExcerpt').value;
+      const readTime = document.getElementById('postReadTime').value;
+      const imageUrl = document.getElementById('postImageUrl').value;
+
+      try {
+        const res = await fetch('http://localhost:3000/api/posts', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token
+          },
+          body: JSON.stringify({ title, content, excerpt, readTime, imageUrl })
+        });
+        const data = await res.json();
+        if (data._id) {
+          alert('Post created successfully!');
+          window.location.href = 'index.html';
+        } else {
+          alert(data.error || 'Failed to create post.');
+        }
+      } catch (error) {
+        console.error('Error creating post:', error);
+        alert('Error creating post.');
+      }
+    });
+  </script>
+</body>
+</html>

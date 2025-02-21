@@ -1,0 +1,97 @@
+<!-- header.html -->
+<style>
+  /* Header container styling */
+  .header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    width: 100%;
+  }
+
+  /* Blog title styling */
+  .blog-title {
+    font-size: 2rem;
+    font-weight: bold;
+  }
+
+  /* Navigation styling (aligned to the right) */
+  #globalNav {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+  }
+
+  #globalNav a.nav-link {
+    padding: 8px 12px;
+    text-decoration: none;
+    color: #030303;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+  }
+  
+  #globalNav a.nav-link:hover {
+    background-color: #f2f2f2;
+    border-radius: 4px;
+  }
+  
+  /* Header scroll behavior - only affects the header */
+  #siteHeader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    transform: translateY(-100%);
+    transition: transform 0.3s ease-out;
+  }
+  
+  #siteHeader.visible {
+    transform: translateY(0);
+  }
+</style>
+  
+<header id="siteHeader">
+  <div class="header-container">
+    <div class="blog-title">LOGO (?)</div>
+    <nav id="globalNav">
+      <a href="index.html" class="nav-link">All Posts</a>
+      <a href="create-post.html" class="nav-link">Create Post</a>
+      <!-- Authentication links will be injected here -->
+      <span id="authLinks"></span>
+    </nav>
+  </div>
+</header>
+  
+<script>
+  // Function to set authentication links based on login status
+  (function setAuthLinks() {
+    const authContainer = document.getElementById('authLinks');
+    const token = localStorage.getItem('token');
+  
+    if (token) {
+      // If logged in, show "Logout" link
+      authContainer.innerHTML = `<a href="#" id="logoutLink" class="nav-link">Logout</a>`;
+      document.getElementById('logoutLink').addEventListener('click', (e) => {
+        e.preventDefault();
+        localStorage.removeItem('token');
+        alert('You have been logged out.');
+        window.location.href = 'index.html';
+      });
+    } else {
+      // If not logged in, show "Login/Register" link
+      authContainer.innerHTML = `<a href="auth.html" class="nav-link">Login/Register</a>`;
+    }
+  })();
+  
+  // Listen for scroll events to toggle header visibility
+  window.addEventListener('scroll', function() {
+    const header = document.getElementById('siteHeader');
+    if (window.scrollY > 100) {  // Adjust scroll offset as needed
+      header.classList.add('visible');
+    } else {
+      header.classList.remove('visible');
+    }
+  });
+</script>
