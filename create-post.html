@@ -93,7 +93,7 @@
       const imageUrl = document.getElementById('postImageUrl').value;
 
       try {
-        const res = await fetch('https://blog-back-end-sprh.onrender.com', {
+        const res = await fetch('https://blog-back-end-sprh.onrender.com/api/posts', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

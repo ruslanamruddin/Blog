@@ -6,7 +6,6 @@
   <title>THE BLOG - Login/Signup</title>
   <link rel="stylesheet" href="styles.css">
   <style>
-
     form {
       border: 1px solid #ddd;
       padding: 20px;
@@ -65,14 +64,14 @@
   </section>
 
   <script>
-    // Function to load header.html and ensure its inline scripts execute
+    // Function to load header.html and execute its inline scripts
     function loadGlobalHeader() {
       fetch('header.html')
         .then(response => response.text())
         .then(data => {
           const container = document.getElementById('global-header');
           container.innerHTML = data;
-          // Execute any inline scripts from header.html
+          // Execute inline scripts in the loaded header.html
           const scripts = container.querySelectorAll("script");
           scripts.forEach(oldScript => {
             const newScript = document.createElement("script");
@@ -97,7 +96,7 @@
       const password = document.getElementById('signupPassword').value;
 
       try {
-        const res = await fetch('https://blog-back-end-sprh.onrender.com', {
+        const res = await fetch('https://blog-back-end-sprh.onrender.com/api/signup', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ username, email, password })
@@ -117,7 +116,7 @@
       const password = document.getElementById('loginPassword').value;
 
       try {
-        const res = await fetch('https://blog-back-end-sprh.onrender.com', {
+        const res = await fetch('https://blog-back-end-sprh.onrender.com/api/login', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ username, password })

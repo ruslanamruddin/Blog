@@ -19,7 +19,7 @@
       transform: translateY(0);
     }
     
-    /* Arrow button styling (now static positioning) */
+    /* Arrow button styling (static positioning) */
     #scrollArrow {
       display: block;
       margin: 20px auto 0;
@@ -84,16 +84,17 @@
       }
       loadGlobalHeader();
 
-      // Fetch and display posts
+      // Fetch and display posts from the backend
       async function fetchPosts() {
         try {
-          const response = await fetch('https://blog-back-end-sprh.onrender.com');
+          // Update this fetch URL to match your backend route for posts:
+          const response = await fetch('https://blog-back-end-sprh.onrender.com/api/posts');
           const data = await response.json();
           const container = document.getElementById('postsContainer');
           container.innerHTML = '';
           data.posts.forEach(post => {
             const postDiv = document.createElement('div');
-            postDiv.className = 'post'; // Initially hidden via CSS
+            postDiv.className = 'post'; // Initially hidden due to CSS
             postDiv.innerHTML = `
               <h3>${post.title}</h3>
               <p>${post.excerpt}</p>
