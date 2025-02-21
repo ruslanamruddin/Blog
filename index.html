@@ -87,7 +87,7 @@
       // Fetch and display posts
       async function fetchPosts() {
         try {
-          const response = await fetch('http://localhost:3000/api/posts');
+          const response = await fetch('https://blog-back-end-sprh.onrender.com');
           const data = await response.json();
           const container = document.getElementById('postsContainer');
           container.innerHTML = '';
