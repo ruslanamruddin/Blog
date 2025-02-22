@@ -19,7 +19,7 @@
     gap: 15px;
     align-items: center;
   }
-  /* Navigation links and dark mode button styling */
+  /* Navigation links and buttons styling */
   #globalNav a.nav-link,
   #globalNav button.nav-link {
     padding: 8px 12px;
@@ -61,7 +61,7 @@
       <!-- Authentication links will be injected here -->
       <span id="authLinks"></span>
       <!-- Dark mode toggle button -->
-      <button id="darkModeBtn" class="nav-link" onclick="darkLight()">Dark/Light</button>
+      <button id="darkModeBtn" class="nav-link" onclick="darkLight()" onclick="mode()">Classical Music</button>
     </nav>
   </div>
 </header>
@@ -84,10 +84,21 @@
     }
   })();
 
-  // Dark mode toggle function
+  // Dark mode toggle function that updates button text
   function darkLight() {
     document.body.classList.toggle("dark-mode");
+    const darkModeBtn = document.getElementById("darkModeBtn");
+    const modeTitle = document.querySelector(".mode");
+
+    if (document.body.classList.contains("dark-mode")) {
+      darkModeBtn.textContent = "Nuclear";
+      modeTitle.textContent = "Everything Classical Music";
+    } else {
+      darkModeBtn.textContent = "Classical Music";
+      modeTitle.textContent = "Everything Nuclear";
+    }
   }
+
 
   // Scroll listener for header visibility
   window.addEventListener('scroll', function() {

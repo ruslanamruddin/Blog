@@ -7,7 +7,7 @@
   box-sizing: border-box;
 }
 
-/* Global typography */
+/* Global Typography */
 body {
   font-family: 'Inter', sans-serif;
   line-height: 1.6;
@@ -21,33 +21,8 @@ body.dark-mode {
   background-color: #000000;
   color: white;
 }
-
-/* Override specific elements in dark mode */
-body.dark-mode .hero-title {
-  color: white;
-}
-body.dark-mode .hero-subtitle {
-  color: #cccccc;
-}
-body.dark-mode h1,
-body.dark-mode h2,
-body.dark-mode h3,
-body.dark-mode h4,
-body.dark-mode h5,
-body.dark-mode h6 {
-  color: white;
-}
 body.dark-mode a {
   color: #007BFF; /* Adjust if needed */
-}
-body.dark-mode header {
-  background-color: #000;
-}
-body.dark-mode #globalNav a.nav-link {
-  color: white;
-}
-body.dark-mode #globalNav a.nav-link:hover {
-  background-color: #333;
 }
 
 /* Hero Section */
@@ -72,10 +47,11 @@ body.dark-mode #globalNav a.nav-link:hover {
   margin: 0;
   font-size: 1.5rem;
   color: rgb(86, 86, 86);
-  margin-top: 0px;
+  margin-top: 0;
   height: 20vh;
   width: 100vw;
   text-align: center;
+  display: flex;
   align-items: center;
   justify-content: center;
 }
@@ -85,6 +61,7 @@ h1.secondary {
   text-align: center;
   font-size: 6rem;
 }
+
 h1 {
   font-family: 'Inter', serif;
   margin-bottom: 0;
@@ -93,6 +70,11 @@ h1 {
 h2, h3, h4, h5, h6 {
   font-family: 'Inter', serif;
   margin-bottom: 1rem;
+}
+h2.mode {
+  text-align: center;
+  font-size: 2rem;
+  font-style: italic;
 }
 
 /* Links */
@@ -104,12 +86,59 @@ a:hover {
   text-decoration: underline;
 }
 
-/* Navigation */
+/* Navigation (Global header) */
 header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 2rem;
+}
+/* Header-specific styles */
+#siteHeader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  transform: translateY(-100%);
+  transition: transform 0.3s ease-out;
+}
+#siteHeader.visible {
+  transform: translateY(0);
+}
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  width: 100%;
+}
+.blog-title {
+  font-size: 2rem;
+  font-weight: bold;
+}
+#globalNav {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+/* Apply same styles to both anchor and button elements in the nav */
+#globalNav a.nav-link,
+#globalNav button.nav-link {
+  padding: 8px 12px;
+  text-decoration: none;
+  color: #030303;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+#globalNav a.nav-link:hover,
+#globalNav button.nav-link:hover {
+  background-color: #f2f2f2;
+  border-radius: 4px;
 }
 
 /* Containers */
@@ -123,7 +152,7 @@ header {
   display: none;
 }
 
-/* Buttons */
+/* Buttons (Global) */
 button {
   padding: 10px 20px;
   background: #007bff;
@@ -139,7 +168,7 @@ button:hover {
 /* Scroll Arrow */
 #scrollArrow {
   display: block;
-  margin: 20px auto 0;
+  margin: 20px auto 0; /* Centered below its container */
   background: transparent;
   border: none;
   font-size: 3rem;
@@ -155,3 +184,30 @@ button:hover {
   transform: translateY(-10%) scale(1.1);
   color: #b30000;
 }
+
+/* Dark Mode Specific Overrides */
+.dark-mode {
+  background-color: #000000;
+  color: white;
+}
+.dark-mode .hero-title {
+  color: white;
+}
+.dark-mode .hero-subtitle {
+  color: #cccccc;
+}
+.dark-mode header {
+  background-color: #000;
+}
+.dark-mode .blog-title {
+  color: white;
+}
+.dark-mode #globalNav a.nav-link,
+.dark-mode #globalNav button.nav-link {
+  color: white;
+}
+.dark-mode #globalNav a.nav-link:hover,
+.dark-mode #globalNav button.nav-link:hover {
+  background-color: #333;
+}
+
