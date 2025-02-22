@@ -1,144 +1,157 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
 
-
-
 /* CSS Reset (simple version) */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-  
-  /* Global typography */
-  body {
-    font-family: 'Inter', sans-serif; 
-    line-height: 1.6;
-    background-color: #ffffff;
-    color: #333;
-    padding: 20px;
-  }
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-  .hero {
-    width: 100vw;
-    height: 100vh;
-    margin: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    flex-direction: column;
-  }
-  
-  .hero-title {
-    font-size: 15vw; /* Large font size */
-    font-weight: bold;
-    text-transform: uppercase; /* Make it all caps */
-    letter-spacing: 1rem; /* Add spacing between letters */
-    color: #000000
-  }
-  
-  .hero-subtitle {
-    margin: 0;
-    font-size: 1.5rem;
-    color: rgb(86, 86, 86);
-    margin-top: 0px;
-    height: 20vh;
-    width: 100vw;
-    text-align: center;
-    align-items: center;
-    justify-content: center;
-   
-  }
-  
-  /* Headings */
+/* Global typography */
+body {
+  font-family: 'Inter', sans-serif;
+  line-height: 1.6;
+  background-color: #ffffff;
+  color: #333;
+  padding: 20px;
+}
 
-  h1.secondary{
-    text-align: center;
-    font-size: 6rem;
-  }
-  h1 {
-    font-family: 'Inter', serif; /* A different font for headings if desired */
-    margin-bottom: 0;
-    font-size: 4vw;
-  }
-  h2, h3, h4, h5, h6 {
-    font-family: 'Inter', serif; /* A different font for headings if desired */
-    margin-bottom: 1rem;
-  }
-  
-  /* Links */
-  a {
-    color: #007BFF;
-    text-decoration: none;
-  }
-  a:hover {
-    text-decoration: underline;
-  }
-  
-  /* Navigation */
-  header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 2rem;
-  }
-  
-  /* Containers */
-  .container {
-    max-width: 1200px;
-    margin: 0 auto;
-  }
-  
-  /* Utility Classes */
-  .hidden {
-    display: none;
-  }
-  
-  /* Buttons */
-  button {
-    padding: 10px 20px;
-    background: #007bff;
-    border: none;
-    border-radius: 4px;
-    color: #000000;
-    cursor: pointer;
-  }
-  button:hover {
-    background: #b80404;
-  }
-  
-  #scrollArrow {
-  /* No fixed positioning—let it flow naturally */
+/* Dark Mode Overrides */
+body.dark-mode {
+  background-color: #000000;
+  color: white;
+}
+
+/* Override specific elements in dark mode */
+body.dark-mode .hero-title {
+  color: white;
+}
+body.dark-mode .hero-subtitle {
+  color: #cccccc;
+}
+body.dark-mode h1,
+body.dark-mode h2,
+body.dark-mode h3,
+body.dark-mode h4,
+body.dark-mode h5,
+body.dark-mode h6 {
+  color: white;
+}
+body.dark-mode a {
+  color: #007BFF; /* Adjust if needed */
+}
+body.dark-mode header {
+  background-color: #000;
+}
+body.dark-mode #globalNav a.nav-link {
+  color: white;
+}
+body.dark-mode #globalNav a.nav-link:hover {
+  background-color: #333;
+}
+
+/* Hero Section */
+.hero {
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  flex-direction: column;
+}
+.hero-title {
+  font-size: 15vw; /* Large font size */
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1rem;
+  color: #000000;
+}
+.hero-subtitle {
+  margin: 0;
+  font-size: 1.5rem;
+  color: rgb(86, 86, 86);
+  margin-top: 0px;
+  height: 20vh;
+  width: 100vw;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Headings */
+h1.secondary {
+  text-align: center;
+  font-size: 6rem;
+}
+h1 {
+  font-family: 'Inter', serif;
+  margin-bottom: 0;
+  font-size: 4vw;
+}
+h2, h3, h4, h5, h6 {
+  font-family: 'Inter', serif;
+  margin-bottom: 1rem;
+}
+
+/* Links */
+a {
+  color: #007BFF;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+
+/* Navigation */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+/* Containers */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Utility Classes */
+.hidden {
+  display: none;
+}
+
+/* Buttons */
+button {
+  padding: 10px 20px;
+  background: #007bff;
+  border: none;
+  border-radius: 4px;
+  color: #000000;
+  cursor: pointer;
+}
+button:hover {
+  background: #b80404;
+}
+
+/* Scroll Arrow */
+#scrollArrow {
   display: block;
-  margin: 20px auto 0; /* Centered horizontally below its container */
+  margin: 20px auto 0;
   background: transparent;
   border: none;
   font-size: 3rem;
   cursor: pointer;
   opacity: 0;
   transition: opacity 0.6s ease-out, transform 0.3s ease;
-  
-    /* Appearance */
-    background: transparent; /* or choose a color like #007BFF */
-    border: none; /* you could add a border if desired */
-    font-size: 3rem; /* controls the size of the arrow icon */
-    color: #007bff; /* changes the arrow's color */
-  
-    /* Spacing & Interactivity */
-    padding: 10px;
-    cursor: pointer;
-    opacity: 0; /* initially hidden */
-    transition: opacity 0.6s ease-out, transform 0.3s ease;
-  }
-  
-  /* When the arrow is visible (after 2 seconds, for example) */
-  #scrollArrow.visible {
-    opacity: 1;
-  }
-  
-  /* Hover Effect */
-  #scrollArrow:hover {
-    transform: translateY(-10%) scale(1.1); /* slightly enlarge on hover */
-    color: #b30000; /* change color on hover */
-  }
-  
+  color: #007bff;
+}
+#scrollArrow.visible {
+  opacity: 1;
+}
+#scrollArrow:hover {
+  transform: translateY(-10%) scale(1.1);
+  color: #b30000;
+}
