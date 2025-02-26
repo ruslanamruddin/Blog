@@ -61,7 +61,7 @@
       <!-- Authentication links will be injected here -->
       <span id="authLinks"></span>
       <!-- Dark mode toggle button -->
-      <button id="darkModeBtn" class="nav-link" onclick="darkLight()" onclick="mode()">Classical Music</button>
+      <button id="darkModeBtn" class="nav-link" onclick="darkLight()">Classical Music</button>
     </nav>
   </div>
 </header>
@@ -71,6 +71,7 @@
   (function setAuthLinks() {
     const authContainer = document.getElementById('authLinks');
     const token = localStorage.getItem('token');
+  
     if (token) {
       authContainer.innerHTML = `<a href="#" id="logoutLink" class="nav-link">Logout</a>`;
       document.getElementById('logoutLink').addEventListener('click', (e) => {
@@ -80,7 +81,20 @@
         window.location.href = 'index.html';
       });
     } else {
-      authContainer.innerHTML = `<a href="auth.html" class="nav-link">Login/Register</a>`;
+      // Instead of linking to auth.html, set the link to open the modal
+      authContainer.innerHTML = `<a href="#" id="openModal" class="nav-link">Login/Register</a>`;
+      const openModal = document.getElementById('openModal');
+      if (openModal) {
+        openModal.addEventListener('click', (e) => {
+          e.preventDefault();
+          const modal = document.getElementById("loginModal");
+          if (modal) {
+            modal.style.display = "block";
+          } else {
+            console.error("Modal element with ID 'loginModal' not found!");
+          }
+        });
+      }
     }
   })();
 
@@ -88,17 +102,13 @@
   function darkLight() {
     document.body.classList.toggle("dark-mode");
     const darkModeBtn = document.getElementById("darkModeBtn");
-    const modeTitle = document.querySelector(".mode");
-
+    // Update the dark mode button text
     if (document.body.classList.contains("dark-mode")) {
       darkModeBtn.textContent = "Nuclear";
-      modeTitle.textContent = "Everything Classical Music";
     } else {
       darkModeBtn.textContent = "Classical Music";
-      modeTitle.textContent = "Everything Nuclear";
     }
   }
-
 
   // Scroll listener for header visibility
   window.addEventListener('scroll', function() {

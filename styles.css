@@ -22,7 +22,18 @@ body.dark-mode {
   color: white;
 }
 body.dark-mode a {
-  color: #007BFF; /* Adjust if needed */
+  color: #007BFF;
+}
+
+/* Lazy Reveal Effects */
+.post, .section-title, .secondary, .hero-subtitle {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+.post.visible, .section-title.visible, .secondary.visible, .hero-subtitle.visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 /* Hero Section */
@@ -44,28 +55,24 @@ body.dark-mode a {
   color: #000000;
 }
 .hero-subtitle {
-  margin: 0;
   font-size: 1.5rem;
   color: rgb(86, 86, 86);
-  margin-top: 0;
   height: 20vh;
   width: 100vw;
-  text-align: center;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 /* Headings */
-h1.secondary {
-  text-align: center;
-  font-size: 6rem;
-}
-
 h1 {
   font-family: 'Inter', serif;
   margin-bottom: 0;
   font-size: 4vw;
+}
+h1.secondary {
+  text-align: center;
+  font-size: 6rem;
 }
 h2, h3, h4, h5, h6 {
   font-family: 'Inter', serif;
@@ -86,7 +93,7 @@ a:hover {
   text-decoration: underline;
 }
 
-/* Navigation (Global header) */
+/* Navigation (Global Header) */
 header {
   display: flex;
   justify-content: space-between;
@@ -122,7 +129,7 @@ header {
   gap: 15px;
   align-items: center;
 }
-/* Apply same styles to both anchor and button elements in the nav */
+/* Apply same styles to nav links and nav buttons */
 #globalNav a.nav-link,
 #globalNav button.nav-link {
   padding: 8px 12px;
@@ -152,16 +159,47 @@ header {
   display: none;
 }
 
-/* Buttons (Global) */
+/* Global Button Styling */
 button {
   padding: 10px 20px;
-  background: #007bff;
+  background: #007BFF;
   border: none;
   border-radius: 4px;
   color: #000000;
   cursor: pointer;
 }
 button:hover {
+  background: #b80404;
+}
+
+/* Form Styling for Auth Pages */
+form {
+  border: 1px solid #ddd;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 4px;
+}
+form label {
+  display: block;
+  margin: 10px 0 5px;
+}
+form input,
+form textarea {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+form button {
+  padding: 10px 20px;
+  background: #007BFF;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+form button:hover {
   background: #b80404;
 }
 
@@ -175,7 +213,7 @@ button:hover {
   cursor: pointer;
   opacity: 0;
   transition: opacity 0.6s ease-out, transform 0.3s ease;
-  color: #007bff;
+  color: #007BFF;
 }
 #scrollArrow.visible {
   opacity: 1;
@@ -210,4 +248,160 @@ button:hover {
 .dark-mode #globalNav button.nav-link:hover {
   background-color: #333;
 }
+
+
+/* Auth Page Styling */
+.auth-container {
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 40px 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.auth-title {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+  font-family: 'Inter', sans-serif;
+}
+
+.auth-forms {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.form-title {
+  font-size: 1.75rem;
+  margin-bottom: 10px;
+  text-align: center;
+  font-family: 'Inter', serif;
+}
+
+/* Form Styling (overrides can be merged with your global form rules if desired) */
+form {
+  background: #ffffff;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+form label {
+  display: block;
+  margin: 10px 0 5px;
+}
+form input,
+form textarea {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+form button {
+  width: 100%;
+  padding: 10px;
+  background: #007BFF;
+  border: none;
+  border-radius: 4px;
+  color: #fff;
+  font-size: 1rem;
+  cursor: pointer;
+}
+form button:hover {
+  background: #b80404;
+}
+
+/* Modal Background */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed;
+  z-index: 2000; /* Above your header and other content */
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+}
+
+/* Modal Content */
+.modal-content {
+  background-color: #f9f9f9;
+  margin: 10% auto; /* Centered in the viewport */
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  max-width: 600px;
+}
+
+/* Close Button */
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+}
+
+/* Modal Section Titles */
+.modal-section h3 {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+/* Reuse your form styling for the modal forms */
+form {
+  border: 1px solid #ddd;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 4px;
+}
+form label {
+  display: block;
+  margin: 10px 0 5px;
+}
+form input,
+form textarea {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+form button {
+  width: 100%;
+  padding: 10px;
+  background: #007BFF;
+  border: none;
+  border-radius: 4px;
+  color: #fff;
+  font-size: 1rem;
+  cursor: pointer;
+}
+form button:hover {
+  background: #b80404;
+}
+
+/* Optional: Styling for the button that triggers the modal */
+#openModalBtn {
+  display: block;
+  margin: 20px auto;
+  padding: 10px 20px;
+  background: #007BFF;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+#openModalBtn:hover {
+  background: #b80404;
+}
+
 
