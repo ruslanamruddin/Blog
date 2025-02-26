@@ -46,11 +46,11 @@ document.addEventListener("DOMContentLoaded", function() {
     }
   
     // Parameters for iterations and delays
-    const totalIterations = 50;
+    const totalIterations = 100;
     const targetTotalTime = 5000; // total time in ms (5 seconds)
     const startDelay = 30;  // starting delay in ms
-    const endDelay = 100;   // final delay in ms
-    const exponent = 3;     // cubic exponent for non-linear slowdown
+    const endDelay = 500;   // final delay in ms
+    const exponent = 12;     // cubic exponent for non-linear slowdown
   
     // Calculate unscaled delays for each iteration using a cubic interpolation.
     let delays = [];
@@ -65,7 +65,7 @@ document.addEventListener("DOMContentLoaded", function() {
     delays = delays.map(delay => delay * scaleFactor);
   
     // Font size parameters (in vw)
-    const startSize = 10; // starting font size (vw)
+    const startSize = 5; // starting font size (vw)
     const endSize = 15;   // final font size (vw)
   
     // Recursive function to change the font, style, and size
